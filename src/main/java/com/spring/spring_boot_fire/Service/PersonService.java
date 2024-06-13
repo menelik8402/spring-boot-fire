@@ -1,0 +1,39 @@
+package com.spring.spring_boot_fire.Service;
+
+import com.spring.spring_boot_fire.Entity.Person;
+import com.spring.spring_boot_fire.Repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PersonService {
+    @Autowired
+    private PersonRepository personRepository;
+
+    public PersonRepository getPersonRepository() {
+        return this.personRepository;
+    }
+
+    public void setPersonRepository(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
+    public List<Person> getAllPersons(){
+        return  this.personRepository.findAll();
+    }
+
+    public Optional<Person> getPersonById(Long id){
+        return this.personRepository.findById(id);
+    }
+
+    public void saveOrUpdatePerson(Person person){
+        this.personRepository.save(person);
+    }
+
+    public void deletePerson(Long id){
+        this.personRepository.deleteById(id);
+    }
+}
