@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM eclipse-temurin
 
 MAINTAINER author=spring.fire
 

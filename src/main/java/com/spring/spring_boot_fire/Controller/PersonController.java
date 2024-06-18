@@ -19,14 +19,17 @@ public class PersonController {
     public List<Person> getAll(){
         return this.personService.getAllPersons();
     }
+
     @PostMapping
     public void saveOrUpdate(@RequestBody Person person){
         this.personService.saveOrUpdatePerson(person);
     }
+
     @DeleteMapping("/{personId}")
     public void deletePerson(@PathVariable("personId") Long personId){
         this.personService.deletePerson(personId);
     }
+
     @GetMapping("/{personId}")
     public Optional<Person> getPersonById(@PathVariable("personId") Long personId){
         return this.personService.getPersonById(personId);
