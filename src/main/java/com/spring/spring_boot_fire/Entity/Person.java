@@ -2,8 +2,12 @@ package com.spring.spring_boot_fire.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
+@Setter
+@Getter
 @Entity
 @Table(name = "tb_person")
 public class Person {
@@ -12,27 +16,8 @@ public class Person {
     private  Long idPerson;
     private String name;
     private int age;
-    private String address;
-    private String picture;
-
     @Column(unique = true,nullable = false)
     private String ci;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
 
     public Long getIdPerson() {
         return idPerson;
