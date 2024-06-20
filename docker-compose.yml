@@ -1,0 +1,95 @@
+version: '3.8'
+services:
+  api:
+    container_name: api_container
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgresql
+      - mongodb  
+    networks:
+      - api   
+
+  postgresql:
+    image: postgres
+    container_name: postgresqldb
+    environment:
+      - POSTGRES_USER=postgres 
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=db_person
+    ports:
+      - "5432:5432"  
+    networks:
+      - api
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME = root
+      - MONGO_INITDB_ROOT_PASSWORD = 123
+    ports:
+      - "27017:27017"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - mongo_data:/data/db
+    networks:
+      - api
+  zookeeper:
+    image: quay.io/strimzi/kafka:0.38.0-kafka-3.6.0
+    container_name: zookeeper
+    command: [
+      "sh", "-c",
+      "bin/zookeeper-server-start.sh config/zookeeper.properties"
+    ]
+    ports:
+      - "2181:2181"
+    environment:
+      LOG_DIR: /tmp/logs
+    networks:
+      - api
+  kafka:
+      image: quay.io/strimzi/kafka:0.38.0-kafka-3.6.0
+      container_name: kafka
+      command: [
+        "sh", "-c",
+        "bin/kafka-server-start.sh config/server.properties --override listeners=$${KAFKA_LISTENERS} --override advertised.listeners=$${KAFKA_ADVERTISED_LISTENERS} --override zookeeper.connect=$${KAFKA_ZOOKEEPER_CONNECT}"
+      ]
+      depends_on:
+        - zookeeper
+      ports:
+        - "9092:9092"
+      volumes:
+        - D:\Menelik\Proyectos\Spring Framework\Web\spring-boot-fire/.docker/kafka/:/home/kafka/
+        - D:\Menelik\Proyectos\Spring Framework\Web\spring-boot-fire/.docker/kafka/cache:/tmp/logs
+      environment:
+        LOG_DIR: "/tmp/logs"
+        KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+        KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      networks:
+        - api
+  akhq:
+      image: tchiotludo/akhq
+      environment:
+        AKHQ_CONFIGURATION: |
+          akhq:
+            connections:
+              docker-kafka-server:
+                properties:
+                  bootstrap.servers: "kafka:9092"
+      ports:
+        - "80:8080"
+      links:
+        - kafka
+      depends_on:
+        - kafka
+      networks:
+        - api
+volumes:
+  postgres_data:
+  mongo_data:
+networks:
+  api:
+    driver: bridge      
