@@ -2,6 +2,7 @@ package com.spring.spring_boot_fire.Controller;
 
 import com.spring.spring_boot_fire.Entity.Person;
 import com.spring.spring_boot_fire.Service.PersonService;
+import com.spring.spring_boot_fire.model.PersonRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +16,15 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
+
     @RequestMapping
     public List<Person> getAll(){
         return this.personService.getAllPersons();
     }
 
     @PostMapping
-    public void saveOrUpdate(@RequestBody Person person){
-        this.personService.saveOrUpdatePerson(person);
+    public void saveOrUpdate(@RequestBody PersonRequest personRequest){
+             this.personService.saveOrUpdatePerson(personRequest);
     }
 
     @DeleteMapping("/{personId}")

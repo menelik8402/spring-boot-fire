@@ -1,9 +1,15 @@
 package com.spring.spring_boot_fire.Service;
 
 import com.spring.spring_boot_fire.Entity.Person;
+import com.spring.spring_boot_fire.Entity.PersonOlder;
 import com.spring.spring_boot_fire.Repository.PersonRepository;
-//import com.spring.spring_boot_fire.event.PersonPublisher;
+import com.spring.spring_boot_fire.mapper.PersonMapper;
+import com.spring.spring_boot_fire.model.PersonRequest;
+import com.spring.spring_boot_fire.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.EventListener;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,9 +19,14 @@ import java.util.Optional;
 public class PersonService {
     @Autowired
     private PersonRepository personRepository;
+    @Autowired
+    private PersonMapper personMapper ;
 
-//    @Autowired
-//    PersonPublisher personPublisher;
+    private final KafkaTemplate<String,String> kafkaTemplate;
+
+    public PersonService(KafkaTemplate<String, String> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     public PersonRepository getPersonRepository() {
         return this.personRepository;
@@ -33,16 +44,16 @@ public class PersonService {
         return this.personRepository.findById(id);
     }
 
-    public void saveOrUpdatePerson(Person person){
-//        if(person.getAge() > 100 ){
-//            PersonRegisteredEvent personRegisteredEvent = new PersonRegisteredEvent(
-//                    person.getCi(),
-//                    person.getAge(),
-//                    person.getAddress()!= null ? person.getAddress() : null,
-//                    person.getPicture()!= null ? person.getPicture() : null
-//            );
-//            personPublisher.publisherPersonRegisteredEvent(personRegisteredEvent);
-//        }
+    @Async
+    @EventListener
+    public void saveOrUpdatePerson(PersonRequest personRequest){
+        if(personRequest.age() > 100){
+            //Enviar mensaje al topic de kafka
+            PersonOlder personOlder =this.personMapper.personRequestPersonOlder(personRequest);
+            this.kafkaTemplate.send("Person-Topics", JsonUtils.toJson(personOlder));
+        }
+
+        Person person = this.personMapper.personRequestToPerson(personRequest);
         this.personRepository.save(person);
     }
 
