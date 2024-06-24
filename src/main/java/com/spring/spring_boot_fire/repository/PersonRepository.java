@@ -1,6 +1,6 @@
-package com.spring.spring_boot_fire.Repository;
+package com.spring.spring_boot_fire.repository;
 
-import com.spring.spring_boot_fire.Entity.Person;
+import com.spring.spring_boot_fire.entity.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

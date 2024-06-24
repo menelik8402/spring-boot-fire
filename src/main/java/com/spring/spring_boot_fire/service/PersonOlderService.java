@@ -1,23 +1,20 @@
-package com.spring.spring_boot_fire.Service;
+package com.spring.spring_boot_fire.service;
 
-import com.spring.spring_boot_fire.Entity.Person;
-import com.spring.spring_boot_fire.Entity.PersonOlder;
-import com.spring.spring_boot_fire.Repository.PersonOlderRepository;
-import com.spring.spring_boot_fire.Repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import com.spring.spring_boot_fire.entity.PersonOlder;
+import com.spring.spring_boot_fire.repository.PersonOlderRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class PersonOlderService {
 
-    @Autowired
-    private  PersonOlderRepository personOlderRepository;
+   private  PersonOlderRepository personOlderRepository;
+
+    public PersonOlderService(PersonOlderRepository personOlderRepository) {
+        this.personOlderRepository = personOlderRepository;
+    }
 
     public PersonOlderRepository getPersonRepository() {
         return this.personOlderRepository;
