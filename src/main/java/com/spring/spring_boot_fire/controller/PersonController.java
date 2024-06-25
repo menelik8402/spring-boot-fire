@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "api/v1/personas")
+@RequestMapping(path = "api/v1/people")
 public class PersonController {
 
     private final PersonService personService;
@@ -25,13 +25,13 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> save(@RequestBody PersonRequest personRequest){
+    public ResponseEntity<PersonRequest> save(@RequestBody PersonRequest personRequest){
             return this.personService.savePerson(personRequest);
     }
 
-    @PutMapping
-    public ResponseEntity<Person> Update(@RequestBody PersonRequest personRequest){
-        return this.personService.UpdatePerson(personRequest);
+    @PutMapping("/person/{id}")
+    public ResponseEntity<PersonRequest> Update(@PathVariable(value = "id") Long personId ,@RequestBody PersonRequest personRequest){
+        return this.personService.updatePerson(personId,personRequest);
     }
 
 

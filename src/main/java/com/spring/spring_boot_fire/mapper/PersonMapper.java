@@ -27,5 +27,9 @@ public class PersonMapper {
 
          return personOlder;
     }
+    public PersonRequest buildPersonRequest(Person person , PersonOlder personOlder){
+        return new PersonRequest(person.getName(),person.getAge(),person.getCi(),personOlder.getAddress(),personOlder.getPicture());
+
+    }
 
 }

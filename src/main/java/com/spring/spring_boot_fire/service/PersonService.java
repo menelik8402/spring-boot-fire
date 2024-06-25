@@ -7,6 +7,7 @@ import com.spring.spring_boot_fire.mapper.PersonMapper;
 import com.spring.spring_boot_fire.model.PersonRequest;
 import com.spring.spring_boot_fire.utils.JsonUtils;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Data
+
 @Service
 public class PersonService {
 
@@ -28,14 +30,12 @@ public class PersonService {
     private final KafkaTemplate<String,String> kafkaTemplate;
 
     public PersonService(PersonRepository personRepository, PersonMapper personMapper, KafkaTemplate<String, String> kafkaTemplate) {
-        this.personRepository = personRepository;
-        this.personMapper = personMapper;
-        this.kafkaTemplate = kafkaTemplate;
+       this.personRepository = personRepository;
+       this.personMapper = personMapper;
+       this.kafkaTemplate = kafkaTemplate;
     }
 
-    public PersonService(KafkaTemplate<String, String> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
-    }
+
 
     public List<Person> getAllPersons(){
         return  this.personRepository.findAll();
@@ -47,21 +47,27 @@ public class PersonService {
 
     @Async
     @EventListener
-    public ResponseEntity<Person> savePerson(PersonRequest personRequest){
+    public ResponseEntity<PersonRequest> savePerson(PersonRequest personRequest){
+        PersonOlder personOlder =this.personMapper.personRequestPersonOlder(personRequest);
         if(personRequest.age() > 100){
             //Enviar mensaje al topic de kafka
-            PersonOlder personOlder =this.personMapper.personRequestPersonOlder(personRequest);
             this.kafkaTemplate.send("Person-Topics", JsonUtils.toJson(personOlder));
         }
-
         Person person = this.personMapper.personRequestToPerson(personRequest);
         person = this.personRepository.save(person);
-        return ResponseEntity.ok(person);
+        return ResponseEntity.ok(this.personMapper.buildPersonRequest(person,personOlder));
     }
-    public ResponseEntity<Person> UpdatePerson(PersonRequest personRequest){
+
+    public ResponseEntity<PersonRequest> updatePerson(Long personId,PersonRequest personRequest){
+        Optional<Person> findPerson = this.personRepository.findById(personId);
         Person person = this.personMapper.personRequestToPerson(personRequest);
-        person = this.personRepository.save(person);
-        return ResponseEntity.ok(person);
+        PersonOlder personOlder =this.personMapper.personRequestPersonOlder(personRequest);
+        if (findPerson.isPresent()) {
+            person.setIdPerson(findPerson.get().getIdPerson());
+            person = this.personRepository.save(person);
+            return ResponseEntity.ok(this.personMapper.buildPersonRequest(person,personOlder));
+        }
+        return null;
     }
 
     public ResponseEntity<String> deletePerson(Long id){

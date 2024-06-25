@@ -21,4 +21,6 @@ public class PersonEventListener {
         PersonOlder personOlder = JsonUtils.fromJson(msg,PersonOlder.class);
         personOlderService.saveOrUpdatePerson(personOlder);
     }
+
+
 }
