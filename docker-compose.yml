@@ -19,7 +19,9 @@ services:
       - POSTGRES_PASSWORD=123
       - POSTGRES_DB=db_person
     ports:
-      - "5432:5432"  
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - api
 
@@ -32,7 +34,6 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
       - mongo_data:/data/db
     networks:
       - api
