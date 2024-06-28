@@ -14,14 +14,16 @@ services:
   postgresql:
     image: postgres
     container_name: postgresqldb
+    tty: true
     environment:
-      - POSTGRES_USER=postgres 
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123
       - POSTGRES_DB=db_person
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - C:\data\postgres\db:/var/lib/postgresql/data
+      - C:\data\postgres\sql:/docker-entrypoint-initdb.d
     networks:
       - api
 
