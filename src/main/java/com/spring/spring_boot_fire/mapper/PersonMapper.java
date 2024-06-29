@@ -1,10 +1,8 @@
 package com.spring.spring_boot_fire.mapper;
 
-import ch.qos.logback.core.model.ComponentModel;
-import com.spring.spring_boot_fire.Entity.Person;
-import com.spring.spring_boot_fire.Entity.PersonOlder;
+import com.spring.spring_boot_fire.entity.Person;
+import com.spring.spring_boot_fire.entity.PersonOlder;
 import com.spring.spring_boot_fire.model.PersonRequest;
-import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,6 +26,10 @@ public class PersonMapper {
             personOlder.setPicture(personRequest.picture());
 
          return personOlder;
+    }
+    public PersonRequest buildPersonRequest(Person person , PersonOlder personOlder){
+        return new PersonRequest(person.getName(),person.getAge(),person.getCi(),personOlder.getAddress(),personOlder.getPicture());
+
     }
 
 }

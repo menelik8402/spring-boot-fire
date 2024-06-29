@@ -13,4 +13,9 @@ public class KafkaTopicConfig {
         return TopicBuilder.name("Person-Topics")
                 .build();
     }
+    @Bean
+    public NewTopic personKafkaTopicUpdate(){
+        return TopicBuilder.name("Person-Topics-Update")
+                .build();
+    }
 }

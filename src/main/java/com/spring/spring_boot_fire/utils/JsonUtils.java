@@ -1,7 +1,5 @@
 package com.spring.spring_boot_fire.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonUtils {
