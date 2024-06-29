@@ -20,7 +20,7 @@ public class PersonController {
     }
 
     @RequestMapping
-    public List<Person> getAll(){
+    public ResponseEntity<List<Person>> getAll(){
         return this.personService.getAllPersons();
     }
 
@@ -41,7 +41,7 @@ public class PersonController {
     }
 
     @GetMapping("/{personId}")
-    public Optional<Person> getPersonById(@PathVariable("personId") Long personId){
+    public ResponseEntity<Person> getPersonById(@PathVariable("personId") Long personId){
         return this.personService.getPersonById(personId);
     }
 }

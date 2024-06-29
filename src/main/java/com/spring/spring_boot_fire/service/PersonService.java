@@ -37,12 +37,17 @@ public class PersonService {
 
 
 
-    public List<Person> getAllPersons(){
-        return  this.personRepository.findAll();
+    public ResponseEntity<List<Person>> getAllPersons(){
+        //return  this.personRepository.findAll();
+        return new ResponseEntity<List<Person>>(this.personRepository.findAll(), HttpStatus.OK);
     }
 
-    public Optional<Person> getPersonById(Long id){
-        return this.personRepository.findById(id);
+    public ResponseEntity<Person> getPersonById(Long id){
+        //return this.personRepository.findById(id);
+        if(this.personRepository.findById(id).isPresent())
+            return new ResponseEntity<Person>(this.personRepository.findById(id).get(), HttpStatus.OK);
+        else
+            return new ResponseEntity<Person>(new Person(),HttpStatus.BAD_REQUEST);
     }
 
     @Async
@@ -55,7 +60,7 @@ public class PersonService {
         }
         Person person = this.personMapper.personRequestToPerson(personRequest);
         person = this.personRepository.save(person);
-        return ResponseEntity.ok(this.personMapper.buildPersonRequest(person,personOlder));
+        return new ResponseEntity<PersonRequest>(this.personMapper.buildPersonRequest(person,personOlder),null,HttpStatus.CREATED);
     }
 
     public ResponseEntity<PersonRequest> updatePerson(Long personId,PersonRequest personRequest){
@@ -65,7 +70,7 @@ public class PersonService {
         if (findPerson.isPresent()) {
             person.setIdPerson(findPerson.get().getIdPerson());
             person = this.personRepository.save(person);
-            return ResponseEntity.ok(this.personMapper.buildPersonRequest(person,personOlder));
+            return new ResponseEntity<PersonRequest>(this.personMapper.buildPersonRequest(person,personOlder),null,HttpStatus.OK);
         }
         return null;
     }
