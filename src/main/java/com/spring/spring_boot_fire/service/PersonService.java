@@ -18,7 +18,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Data
+
+//todo: imports sin limpiar
+
+//todo: eliminar los comentarios innecesarios
+
+//todo: codigos http del update y el delete no debe ser 200
+
+@Data   //todo: quedamos que no usaremos @Data y mucho menos en una clase servicio
 
 @Service
 public class PersonService {

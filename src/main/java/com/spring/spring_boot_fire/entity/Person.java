@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
+@Data   //todo: quedamos que no usaremos @Data
 @Setter
 @Getter
 @Entity

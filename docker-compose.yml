@@ -21,7 +21,7 @@ services:
       - POSTGRES_DB=db_person
     ports:
       - "5432:5432"
-    volumes:
+    volumes:  #todo: debes configurar los volumenes en la carpeta del proyecto. no en una torre local de tu pc
       - C:\data\postgres\db:/var/lib/postgresql/data
       - C:\data\postgres\sql:/docker-entrypoint-initdb.d
     networks:

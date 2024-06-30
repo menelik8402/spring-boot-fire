@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class PersonEventListener {
 
 
-    PersonOlderService personOlderService;
+    PersonOlderService personOlderService;  //todo: falta modificador de acceso 'private', si le pones 'final', mejor
 
     public PersonEventListener(PersonOlderService personOlderService) {
         this.personOlderService = personOlderService;
