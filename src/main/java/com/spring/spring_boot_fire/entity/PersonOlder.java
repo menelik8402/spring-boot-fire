@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collation = "cl_person")
-@Data   //todo: quedamos que no usaremos @Data
 @Setter
 @Getter
 public class PersonOlder {

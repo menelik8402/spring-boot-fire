@@ -7,12 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-
-//todo: imports sin limpiar
-
-//todo: el fichero README.md despues se debe hacer, pero de momento deja agregado el link del swagger
 
 @RestController
 @RequestMapping(path = "api/v1/people")
@@ -24,7 +19,7 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @RequestMapping     //todo: esto no es correcto de ser @GetMapping
+    @GetMapping
     public ResponseEntity<List<Person>> getAll(){
         return this.personService.getAllPersons();
     }

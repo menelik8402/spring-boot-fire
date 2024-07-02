@@ -6,8 +6,8 @@ import com.spring.spring_boot_fire.repository.PersonRepository;
 import com.spring.spring_boot_fire.mapper.PersonMapper;
 import com.spring.spring_boot_fire.model.PersonRequest;
 import com.spring.spring_boot_fire.utils.JsonUtils;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,14 +19,8 @@ import java.util.List;
 import java.util.Optional;
 
 
-//todo: imports sin limpiar
-
-//todo: eliminar los comentarios innecesarios
-
-//todo: codigos http del update y el delete no debe ser 200
-
-@Data   //todo: quedamos que no usaremos @Data y mucho menos en una clase servicio
-
+@Setter
+@Getter
 @Service
 public class PersonService {
 
@@ -77,13 +71,13 @@ public class PersonService {
         if (findPerson.isPresent()) {
             person.setIdPerson(findPerson.get().getIdPerson());
             person = this.personRepository.save(person);
-            return new ResponseEntity<PersonRequest>(this.personMapper.buildPersonRequest(person,personOlder),null,HttpStatus.OK);
+            return new ResponseEntity<PersonRequest>(this.personMapper.buildPersonRequest(person,personOlder),null,HttpStatus.valueOf(204));
         }
         return null;
     }
 
     public ResponseEntity<String> deletePerson(Long id){
         this.personRepository.deleteById(id);
-        return new ResponseEntity<>("Person was deleted succefully", HttpStatus.OK);
+        return new ResponseEntity<>("Person was deleted succefully", HttpStatus.valueOf(204));
     }
 }
