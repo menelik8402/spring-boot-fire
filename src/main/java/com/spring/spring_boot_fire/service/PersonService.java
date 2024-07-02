@@ -6,8 +6,6 @@ import com.spring.spring_boot_fire.repository.PersonRepository;
 import com.spring.spring_boot_fire.mapper.PersonMapper;
 import com.spring.spring_boot_fire.model.PersonRequest;
 import com.spring.spring_boot_fire.utils.JsonUtils;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +16,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
-@Setter
-@Getter
 @Service
 public class PersonService {
 
     private PersonRepository personRepository;
-
     private PersonMapper personMapper ;
-
     private final KafkaTemplate<String,String> kafkaTemplate;
 
     public PersonService(PersonRepository personRepository, PersonMapper personMapper, KafkaTemplate<String, String> kafkaTemplate) {
@@ -36,15 +29,11 @@ public class PersonService {
        this.kafkaTemplate = kafkaTemplate;
     }
 
-
-
     public ResponseEntity<List<Person>> getAllPersons(){
-        //return  this.personRepository.findAll();
         return new ResponseEntity<List<Person>>(this.personRepository.findAll(), HttpStatus.OK);
     }
 
     public ResponseEntity<Person> getPersonById(Long id){
-        //return this.personRepository.findById(id);
         if(this.personRepository.findById(id).isPresent())
             return new ResponseEntity<Person>(this.personRepository.findById(id).get(), HttpStatus.OK);
         else
@@ -80,4 +69,5 @@ public class PersonService {
         this.personRepository.deleteById(id);
         return new ResponseEntity<>("Person was deleted succefully", HttpStatus.valueOf(204));
     }
+
 }
