@@ -1,16 +1,15 @@
 package com.spring.spring_boot_fire.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Data
 @Setter
 @Getter
 @Entity
 @Table(name = "tb_person")
 public class Person {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long idPerson;

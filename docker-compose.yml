@@ -22,8 +22,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - C:\data\postgres\db:/var/lib/postgresql/data
-      - C:\data\postgres\sql:/docker-entrypoint-initdb.d
+      - ./src/main/resources/data/postgres/db:/var/lib/postgresql/data
+      - ./src/main/resources/data/postgres/sql:/docker-entrypoint-initdb.d
     networks:
       - api
 
@@ -64,8 +64,8 @@ services:
       ports:
         - "9092:9092"
       volumes:
-        - D:\Menelik\Proyectos\Spring Framework\Web\spring-boot-fire/.docker/kafka/:/home/kafka/
-        - D:\Menelik\Proyectos\Spring Framework\Web\spring-boot-fire/.docker/kafka/cache:/tmp/logs
+        - ./.docker/kafka/:/home/kafka/
+        - ./.docker/kafka/cache:/tmp/logs
       environment:
         LOG_DIR: "/tmp/logs"
         KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092

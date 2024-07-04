@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping(path = "api/v1/people")
@@ -19,7 +19,7 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @RequestMapping
+    @GetMapping
     public ResponseEntity<List<Person>> getAll(){
         return this.personService.getAllPersons();
     }

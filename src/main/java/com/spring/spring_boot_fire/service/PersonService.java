@@ -6,8 +6,6 @@ import com.spring.spring_boot_fire.repository.PersonRepository;
 import com.spring.spring_boot_fire.mapper.PersonMapper;
 import com.spring.spring_boot_fire.model.PersonRequest;
 import com.spring.spring_boot_fire.utils.JsonUtils;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +16,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Data
-
 @Service
 public class PersonService {
 
     private PersonRepository personRepository;
-
     private PersonMapper personMapper ;
-
     private final KafkaTemplate<String,String> kafkaTemplate;
 
     public PersonService(PersonRepository personRepository, PersonMapper personMapper, KafkaTemplate<String, String> kafkaTemplate) {
@@ -35,15 +29,11 @@ public class PersonService {
        this.kafkaTemplate = kafkaTemplate;
     }
 
-
-
     public ResponseEntity<List<Person>> getAllPersons(){
-        //return  this.personRepository.findAll();
         return new ResponseEntity<List<Person>>(this.personRepository.findAll(), HttpStatus.OK);
     }
 
     public ResponseEntity<Person> getPersonById(Long id){
-        //return this.personRepository.findById(id);
         if(this.personRepository.findById(id).isPresent())
             return new ResponseEntity<Person>(this.personRepository.findById(id).get(), HttpStatus.OK);
         else
@@ -70,13 +60,14 @@ public class PersonService {
         if (findPerson.isPresent()) {
             person.setIdPerson(findPerson.get().getIdPerson());
             person = this.personRepository.save(person);
-            return new ResponseEntity<PersonRequest>(this.personMapper.buildPersonRequest(person,personOlder),null,HttpStatus.OK);
+            return new ResponseEntity<PersonRequest>(this.personMapper.buildPersonRequest(person,personOlder),null,HttpStatus.valueOf(204));
         }
         return null;
     }
 
     public ResponseEntity<String> deletePerson(Long id){
         this.personRepository.deleteById(id);
-        return new ResponseEntity<>("Person was deleted succefully", HttpStatus.OK);
+        return new ResponseEntity<>("Person was deleted succefully", HttpStatus.valueOf(204));
     }
+
 }

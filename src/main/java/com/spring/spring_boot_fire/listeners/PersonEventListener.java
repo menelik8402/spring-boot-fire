@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class PersonEventListener {
 
 
-    PersonOlderService personOlderService;
+   private final PersonOlderService personOlderService;
 
     public PersonEventListener(PersonOlderService personOlderService) {
         this.personOlderService = personOlderService;
