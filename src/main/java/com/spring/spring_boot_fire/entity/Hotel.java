@@ -12,11 +12,17 @@ public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long idhotel;
-    private String category;
+    private int category;
 
     @OneToOne
     @JoinColumn(
             name = "address_id"
     )
     private Address address;
+
+    @OneToOne
+    @JoinColumn(
+            name = "trip_id"
+    )
+    private Trip trip;
 }

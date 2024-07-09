@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -14,9 +15,8 @@ public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long idTrip;
-    private int id_address;
-    private int id_people;
     private int id_hotel;
+    private Date date;
 
     @ManyToMany(mappedBy = "tripList")
     private List<Person> personList;
@@ -26,6 +26,11 @@ public class Trip {
             name = "address_id"
     )
     private Address address;
+
+    @OneToOne(
+            mappedBy = "trip"
+    )
+    private Hotel hotel;
 
 
 }

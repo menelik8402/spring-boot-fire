@@ -15,9 +15,10 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long idAddress;
-    private String state;
     private String country;
     private String province;
+    private String municipality;
+    private String details;
 
     @ManyToMany(mappedBy = "addressList")
     private List<Person> personList;

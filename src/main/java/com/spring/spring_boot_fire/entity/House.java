@@ -14,7 +14,6 @@ public class House {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long idHouse;
-    private int id_address;
     private String color;
 
     @ManyToMany(mappedBy = "houseList")
