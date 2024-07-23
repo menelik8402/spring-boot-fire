@@ -3,7 +3,6 @@ package com.spring.spring_boot_fire.service;
 import com.spring.spring_boot_fire.entity.PersonOlder;
 import com.spring.spring_boot_fire.repository.PersonOlderRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +34,6 @@ public class PersonOlderService {
     public void saveOrUpdatePerson(PersonOlder personOlder){
         this.personOlderRepository.save(personOlder);
     }
-
 
     public void deletePerson(String id){
         this.personOlderRepository.deleteById(id);

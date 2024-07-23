@@ -5,7 +5,6 @@ import com.spring.spring_boot_fire.service.PersonService;
 import com.spring.spring_boot_fire.model.PersonRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 

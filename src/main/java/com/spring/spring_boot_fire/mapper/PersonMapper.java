@@ -4,7 +4,6 @@ import com.spring.spring_boot_fire.entity.Person;
 import com.spring.spring_boot_fire.entity.PersonOlder;
 import com.spring.spring_boot_fire.model.PersonRequest;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
