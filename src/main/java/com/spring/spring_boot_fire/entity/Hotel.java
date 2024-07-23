@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long idhotel;
+    private  Long idHotel;
     private int category;
 
     @OneToOne

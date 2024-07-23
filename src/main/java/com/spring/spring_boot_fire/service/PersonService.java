@@ -8,11 +8,13 @@ import com.spring.spring_boot_fire.model.PersonRequest;
 import com.spring.spring_boot_fire.utils.JsonUtils;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +70,23 @@ public class PersonService {
     public ResponseEntity<String> deletePerson(Long id){
         this.personRepository.deleteById(id);
         return new ResponseEntity<>("Person was deleted succefully", HttpStatus.valueOf(204));
+    }
+
+    public ResponseEntity<List<PersonRequest>> getListOfPeopleTripTo(String country ){
+       // return this.personMapper.buildPersonRequestList(this.personRepository.getListOfPeopleTripTo(country));
+        return new ResponseEntity<List<PersonRequest>>(this.personMapper.buildPersonRequestList(this.personRepository.getListOfPeopleTripTo(country)),HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<PersonRequest>> getListOfPeopleStayTopHotelTo(int category ){
+       return new ResponseEntity<List<PersonRequest>>(this.personMapper.buildPersonRequestList(this.personRepository.getListOfPeopleStayTopHoltel(category)),HttpStatus.OK);
+    }
+
+    public ResponseEntity<Integer> getCountBlueHouses(String color ){
+        return new ResponseEntity<Integer>(this.personRepository.getCountOfBlueHouses(color), (HttpStatusCode) HttpStatus.valueOf(201));
+    }
+
+    public ResponseEntity<List<PersonRequest>> getListOfPeopleTripToStayHotelHouses(String country, int category, String province, String yearini, String yearfinal){
+        return new ResponseEntity<List<PersonRequest>>(this.personMapper.buildPersonRequestList(this.personRepository.getListOfPeopleTripToStayHotelHouses(country,category,province,yearini,yearfinal)),HttpStatus.OK);
     }
 
 }

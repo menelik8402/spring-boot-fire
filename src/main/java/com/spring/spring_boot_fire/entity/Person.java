@@ -13,6 +13,7 @@ import java.util.List;
 public class Person {
 
     @Id
+    @Column(name = "id_person")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long idPerson;
     private String name;

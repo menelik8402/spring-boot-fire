@@ -5,6 +5,9 @@ import com.spring.spring_boot_fire.entity.PersonOlder;
 import com.spring.spring_boot_fire.model.PersonRequest;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class PersonMapper {
 
@@ -30,6 +33,13 @@ public class PersonMapper {
     public PersonRequest buildPersonRequest(Person person , PersonOlder personOlder){
         return new PersonRequest(person.getName(),person.getAge(),person.getCi(),personOlder.getAddress(),personOlder.getPicture());
 
+    }
+    public List<PersonRequest> buildPersonRequestList(List<Person> personList){
+        List<PersonRequest> personRequests = new ArrayList<PersonRequest>();
+        PersonOlder personOlder = new PersonOlder();
+        personList.forEach((person) -> personRequests.add(this.buildPersonRequest(person,personOlder)) );
+
+        return personRequests;
     }
 
 }

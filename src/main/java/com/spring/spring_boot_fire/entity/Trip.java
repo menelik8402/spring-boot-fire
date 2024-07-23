@@ -15,7 +15,7 @@ public class Trip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long idTrip;
-    private int id_hotel;
+    private int idHotel;
     private Date date;
 
     @ManyToMany(mappedBy = "tripList")
@@ -28,7 +28,9 @@ public class Trip {
     private Address address;
 
     @OneToOne(
-            mappedBy = "trip"
+            mappedBy = "trip",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private Hotel hotel;
 

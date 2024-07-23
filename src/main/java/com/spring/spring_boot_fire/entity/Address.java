@@ -13,6 +13,7 @@ import java.util.List;
 @Table(name = "address")
 public class Address {
     @Id
+    @Column(name = "id_Address")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long idAddress;
     private String country;
@@ -24,17 +25,23 @@ public class Address {
     private List<Person> personList;
 
     @OneToOne(
-            mappedBy = "address"
+            mappedBy = "address",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private Trip trip;
 
     @OneToOne(
-            mappedBy = "address"
+            mappedBy = "address",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private Hotel hotel;
 
     @OneToOne(
-            mappedBy = "address"
+            mappedBy = "address",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private House house;
 }
