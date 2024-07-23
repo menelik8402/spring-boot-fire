@@ -5,7 +5,6 @@ import com.spring.spring_boot_fire.service.PersonService;
 import com.spring.spring_boot_fire.model.PersonRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 
@@ -44,4 +43,31 @@ public class PersonController {
     public ResponseEntity<Person> getPersonById(@PathVariable("personId") Long personId){
         return this.personService.getPersonById(personId);
     }
+
+    @GetMapping("/list/country/{country}")
+    public ResponseEntity<List<PersonRequest>> getListOfPersonsToTrip(@PathVariable("country") String country){
+        return this.personService.getListOfPeopleTripTo(country);
+    }
+
+    @GetMapping("/list/category/{category}")
+    public ResponseEntity<List<PersonRequest>> getListOfPersonsStayHotelTo(@PathVariable("category") int category){
+        return this.personService.getListOfPeopleStayTopHotelTo(category);
+    }
+
+    @GetMapping("/list/color/{color}")
+    public ResponseEntity<Integer> getCountPeopleBlueHouses(@PathVariable("color") String color){
+        return this.personService.getCountBlueHouses(color);
+    }
+
+    @GetMapping("/list/bypeople/{country}/{category}/{province}/{yearini}/{yearfinal}")
+    public ResponseEntity<List<PersonRequest>> getListOfPeopleTripToStayHotelHouses(
+            @PathVariable("country") String country,
+            @PathVariable("category") int category,
+            @PathVariable("province") String province,
+            @PathVariable("yearini") String yearini,
+            @PathVariable("yearfinal") String yearfinal){
+        return this.personService.getListOfPeopleTripToStayHotelHouses(country,category,province,yearini,yearfinal);
+    }
+
+
 }
