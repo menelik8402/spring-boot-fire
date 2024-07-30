@@ -1,0 +1,10 @@
+insert into person_has_trip  (people_idperson, trip_idtrip) values (4, 4);
+insert into person_has_trip  (people_idperson, trip_idtrip) values (5, 10);
+insert into person_has_trip  (people_idperson, trip_idtrip) values (1, 2);
+insert into person_has_trip  (people_idperson, trip_idtrip) values (2, 2);
+insert into person_has_trip  (people_idperson, trip_idtrip) values (3, 2);
+insert into person_has_trip  (people_idperson, trip_idtrip) values (2, 3);
+insert into person_has_trip  (people_idperson, trip_idtrip) values (4, 8);
+insert into person_has_trip  (people_idperson, trip_idtrip) values (8, 3);
+insert into person_has_trip  (people_idperson, trip_idtrip) values (7, 4);
+insert into person_has_trip  (people_idperson, trip_idtrip) values (5, 6);

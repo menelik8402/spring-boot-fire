@@ -1,0 +1,10 @@
+insert into person_has_house  (people_idperson, house_idhouse) values (1, 1);
+insert into person_has_house  (people_idperson, house_idhouse) values (2, 10);
+insert into person_has_house  (people_idperson, house_idhouse) values (3, 9);
+insert into person_has_house  (people_idperson, house_idhouse) values (10, 3);
+insert into person_has_house  (people_idperson, house_idhouse) values (5, 7);
+insert into person_has_house  (people_idperson, house_idhouse) values (4, 6);
+insert into person_has_house  (people_idperson, house_idhouse) values (8, 2);
+insert into person_has_house  (people_idperson, house_idhouse) values (3, 5);
+insert into person_has_house  (people_idperson, house_idhouse) values (5, 5);
+insert into person_has_house  (people_idperson, house_idhouse) values (9, 10);
