@@ -1,6 +1,7 @@
 HELP.md
 target/
-src/main/resources/data/
+src/main/resources/data/postgres/db
+src/main/resources/data/postgres/diagram
 .docker/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
